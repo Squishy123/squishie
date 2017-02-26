@@ -8,4 +8,4 @@ I am a developer working on a variety of projects.
 - CSS
 
 ## Info and Other Stuff
-Heres my <a href="squished.cf"> BLOG</a>
+Heres my <a href="http://squished.cf"> BLOG</a>
