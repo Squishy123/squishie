@@ -5,14 +5,18 @@ class Modal extends Actor {
 
   init() {
     super.init();
+    //TODO FIX OFFSETS
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.width = 100;
     this.height = 100;
     this.setDimensions({
       width: this.width,
       height: this.height
     });
-    this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2;
-    this.y = this.stage.element.getBoundingClientRect().height / 2 + this.height / 2;
+
+    this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2 - this.offsetX;
+    this.y = this.stage.element.getBoundingClientRect().height / 2 - this.height / 2 + this.offsetY;
     this.setLocation({
       x: this.x,
       y: this.y
@@ -31,11 +35,16 @@ class Modal extends Actor {
     });
     this.addObject(this.button);
     this.button.setText("Open");
-    this.button.setDimensions({width: this.width, height: this.height});
+    this.button.setDimensions({
+      width: this.width,
+      height: this.height
+    });
   }
 
   hide(scalingFactor) {
-    if (this.getBounds().height <= 100 && this.getBounds().width <= 100) {
+    let deltaWidth = this.width;
+    let deltaHeight = this.height;
+    if (this.getBounds().height <= 100 + this.offsetY && this.getBounds().width <= 100 + this.offsetX) {
       this.width = 100;
       this.height = 100;
       this.setDimensions({
@@ -45,19 +54,26 @@ class Modal extends Actor {
       return;
     }
 
-    if (this.getBounds().height > 100) {
+    if (this.getBounds().height > 100 + this.offsetY) {
       this.height -= window.innerHeight / scalingFactor;
     }
-    if (this.getBounds().width > 100) {
+    if (this.getBounds().width > 100 + this.offsetX) {
       this.width -= window.innerWidth / scalingFactor;
     }
     this.setDimensions({
       height: this.height,
       width: this.width
     });
+    //Move towards the center
+    this.setLocation({
+      x: this.x + (deltaWidth - this.width) / 2,
+      y: this.y + (deltaHeight - this.height) / 2
+    });
   }
 
   show(scalingFactor) {
+    let deltaWidth = this.width;
+    let deltaHeight = this.height;
     if (this.height >= window.innerHeight && this.width >= window.innerWidth) {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
@@ -76,6 +92,12 @@ class Modal extends Actor {
     this.setDimensions({
       height: this.height,
       width: this.width
+    });
+
+    //Move towards the center
+    this.setLocation({
+      x: this.x + (deltaWidth - this.width) / 2,
+      y: this.y + (deltaHeight - this.height) / 2
     });
   }
 
@@ -98,8 +120,8 @@ class Modal extends Actor {
   }
 
   update() {
-    this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2;
-    this.y = this.stage.element.getBoundingClientRect().height / 2 - this.height / 2;
+    this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2 - this.offsetX;
+    this.y = this.stage.element.getBoundingClientRect().height / 2 - this.height / 2 + this.offsetY;
 
     this.setLocation({
       x: this.x,

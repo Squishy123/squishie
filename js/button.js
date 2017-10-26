@@ -5,10 +5,10 @@ class Button extends Actor {
   }
 
   init() {
-    super.init();
-    let e = document.createElement("button");
-    e.setAttribute("class", "btn display-2");
+    let e = document.createElement("h1");
+    e.setAttribute("class", "display-2 unselectable");
     this.bindElement(e);
+    super.init();
 
     this.inputHandler = new InputHandler();
     this.inputHandler.targetEvents(this.element, {
@@ -16,6 +16,10 @@ class Button extends Actor {
     });
 
     this.click = this.inputHandler.click;
+
+    this.setLocation({
+      y: 5
+    })
   }
 
   setText(text) {
