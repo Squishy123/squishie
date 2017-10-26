@@ -5,14 +5,12 @@ class Modal extends Actor {
 
   init() {
     super.init();
-    this.expanded = false;
     this.width = 400;
     this.height = 300;
     this.setDimensions({
       width: this.width,
       height: this.height
     });
-    console.log(this.stage.element.getBoundingClientRect())
     this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2;
     this.y = this.stage.element.getBoundingClientRect().height / 2 - this.height / 2;
     this.setLocation({
@@ -20,11 +18,13 @@ class Modal extends Actor {
       y: this.y
     });
 
-
     this.styleElement({
       "background-color": "#ffff6b",
       "opacity": 0.75
     });
+
+    this.expanded = false;
+
 
     this.button = new Button(() => {
       this.expanded = this.button.click;
@@ -34,8 +34,7 @@ class Modal extends Actor {
   }
 
   hide(scalingFactor) {
-    if (this.getBounds().height <= 0 && this.getBounds().width <= 0) {
-    }
+    if (this.getBounds().height <= 0 && this.getBounds().width <= 0) {}
 
     if (this.getBounds().height > 300) {
       this.height -= window.innerHeight / scalingFactor;
