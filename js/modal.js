@@ -5,14 +5,14 @@ class Modal extends Actor {
 
   init() {
     super.init();
-    this.width = 400;
-    this.height = 300;
+    this.width = 100;
+    this.height = 100;
     this.setDimensions({
       width: this.width,
       height: this.height
     });
     this.x = this.stage.element.getBoundingClientRect().width / 2 - this.width / 2;
-    this.y = this.stage.element.getBoundingClientRect().height / 2 - this.height / 2;
+    this.y = this.stage.element.getBoundingClientRect().height / 2 + this.height / 2;
     this.setLocation({
       x: this.x,
       y: this.y
@@ -31,15 +31,24 @@ class Modal extends Actor {
     });
     this.addObject(this.button);
     this.button.setText("Open");
+    this.button.setDimensions({width: this.width, height: this.height});
   }
 
   hide(scalingFactor) {
-    if (this.getBounds().height <= 0 && this.getBounds().width <= 0) {}
+    if (this.getBounds().height <= 100 && this.getBounds().width <= 100) {
+      this.width = 100;
+      this.height = 100;
+      this.setDimensions({
+        height: this.height,
+        width: this.width
+      });
+      return;
+    }
 
-    if (this.getBounds().height > 300) {
+    if (this.getBounds().height > 100) {
       this.height -= window.innerHeight / scalingFactor;
     }
-    if (this.getBounds().width > 400) {
+    if (this.getBounds().width > 100) {
       this.width -= window.innerWidth / scalingFactor;
     }
     this.setDimensions({
@@ -50,6 +59,12 @@ class Modal extends Actor {
 
   show(scalingFactor) {
     if (this.height >= window.innerHeight && this.width >= window.innerWidth) {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.setDimensions({
+        height: this.height,
+        width: this.width
+      });
       return;
     }
     if (this.height < window.innerHeight) {

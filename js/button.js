@@ -7,7 +7,7 @@ class Button extends Actor {
   init() {
     super.init();
     let e = document.createElement("button");
-    e.setAttribute("class", "btn");
+    e.setAttribute("class", "btn display-2");
     this.bindElement(e);
 
     this.inputHandler = new InputHandler();
@@ -23,9 +23,9 @@ class Button extends Actor {
   }
 
   update() {
-    this.setLocation({x: this.stage.element.getBoundingClientRect().width/2})
     this.click = this.inputHandler.click;
     if (this.click) {
+      console.log("CLICKED")
       this.onToggled();
     }
   }
