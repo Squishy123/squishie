@@ -1,0 +1,4 @@
+[submodule "webfoot"]
+	path = webfoot
+	url = https://github.com/Squishy123/webfoot.git
+	branch = master
