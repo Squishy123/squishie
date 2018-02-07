@@ -1,6 +1,7 @@
-let s = new Stage(document.getElementById("stage"));
-s.start();
+let stage = new Stage(document.querySelector("#stage"));
+stage.start(120, 120);
 
-let m = new Modal();
+let info = new InfoBox();
+info.setHTML("<h1>Hey Jude</h1>")
 
-s.addObject(m);
+stage.addActor(info);
